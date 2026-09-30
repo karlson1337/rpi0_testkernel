@@ -1,2 +1,4 @@
 bin/
 cross/
+firmware/
+out/

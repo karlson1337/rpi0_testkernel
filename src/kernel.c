@@ -3,6 +3,9 @@
 
 static uint32_t MMIO_BASE;
 
+#define SYSTMR_BASE 0x3000 // offset from MMIO_BASE
+#define SYSTMR_CLO (SYSTMR_BASE + 0x04)
+
 // The MMIO area base address, depends on board type
 static inline void mmio_init(int raspi)
 {
@@ -33,10 +36,29 @@ static inline void delay(int32_t count)
 		 : "=r"(count): [count]"0"(count) : "cc");
 }
 
+static inline void wait_usec(uint32_t usec) {
+    uint32_t start = mmio_read(SYSTMR_CLO);
+    while ((mmio_read(SYSTMR_CLO) - start) < usec) { }
+}
+
+void ksleep(uint32_t sec)
+{
+    while(sec > 0)
+    {
+        wait_usec(1000000);
+        sec--;
+    }
+}
+
 enum
 {
     // The offsets for reach register.
     GPIO_BASE = 0x200000,
+
+    GPFSEL0 = (GPIO_BASE + 0x00),
+    GPFSEL1 = (GPIO_BASE + 0x04),
+    GPSET0  = (GPIO_BASE + 0x1C),
+    GPCLR0  = (GPIO_BASE + 0x28),
 
     // Controls actuation of pull up/down to ALL GPIO pins.
     GPPUD = (GPIO_BASE + 0x94),
@@ -154,6 +176,19 @@ void uart_puts(const char* str)
 		uart_putc((unsigned char)str[i]);
 }
 
+void gpio_set_output(int pin) {
+    uint32_t reg = GPFSEL0 + (pin / 10) * 4;
+    uint32_t shift = (pin % 10) * 3;
+    uint32_t val = mmio_read(reg);
+    val &= ~(7 << shift);
+    val |= (1 << shift);
+    mmio_write(reg, val);
+}
+
+void gpio_high(int pin) { mmio_write(GPSET0 + (pin / 32) * 4, 1 << (pin % 32)); }
+void gpio_low(int pin)  { mmio_write(GPCLR0 + (pin / 32) * 4, 1 << (pin % 32)); }
+
+
 #if defined(__cplusplus)
 extern "C" /* Use C linkage for kernel_main. */
 #endif
@@ -170,6 +205,10 @@ void kernel_main(uint32_t r0, uint32_t r1, uint32_t atags)
 	uart_init(0);
 	uart_puts("Hello, kernel World!\r\n");
 
-	while (1)
-		uart_putc(uart_getc());
+    while (1) {
+        gpio_low(47);
+        ksleep(1);
+        gpio_high(47);
+        ksleep(1);
+    }
 }
