@@ -1,7 +1,33 @@
 CC = arm-none-eabi-gcc
+OBJCOPY = arm-none-eabi-objcopy
 
-all: 
-	$(CC) -mcpu=arm1176jzf-s -fpic -ffreestanding -nostdlib -c src/boot.S -o bin/boot.o
-	$(CC) -mcpu=arm1176jzf-s -fpic -ffreestanding -nostdlib -std=gnu99 -c src/kernel.c -o bin/kernel.o -O2 -Wall -Wextra
-	$(CC) -T src/linker.ld -o bin/kernel.elf -ffreestanding -nostdlib -O2 -nostdlib bin/boot.o bin/kernel.o -lgcc
-	arm-none-eabi-objcopy -O binary bin/kernel.elf out/kernel.img
+CFLAGS = -mcpu=arm1176jzf-s -fpic -ffreestanding -std=gnu99 -O2 -Wall -Wextra
+ASFLAGS = -mcpu=arm1176jzf-s -fpic -ffreestanding
+LDFLAGS = -mcpu=arm1176jzf-s -T src/linker.ld -ffreestanding -nostdlib
+
+C_SOURCES := $(wildcard src/*.c)
+OBJECTS := bin/boot.o $(patsubst src/%.c,bin/%.o,$(C_SOURCES))
+
+.PHONY: all
+all: out/kernel.img
+
+out/kernel.img: bin/kernel.elf | out
+	$(OBJCOPY) -O binary $< $@
+
+bin/kernel.elf: $(OBJECTS) src/linker.ld Makefile | bin
+	$(CC) $(LDFLAGS) -o $@ $(OBJECTS) -lgcc
+
+bin/%.o: src/%.c Makefile | bin
+	$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -c $< -o $@
+
+bin/boot.o: src/boot.S Makefile | bin
+	$(CC) $(CPPFLAGS) $(ASFLAGS) -MMD -MP -c $< -o $@
+
+bin out:
+	mkdir -p $@
+
+clean:
+	rm -r bin/
+	rm out/kernel.img
+
+-include $(OBJECTS:.o=.d)
