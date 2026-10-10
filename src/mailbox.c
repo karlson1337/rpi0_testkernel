@@ -10,17 +10,6 @@ enum {
     MBOX_EMPTY  =  (1u << 30)
 };
 
-typedef struct {
-    uint8_t channel: 4;
-    uint32_t data: 28;
-} mail_message_t;
-
-typedef struct {
-    uint32_t reserved: 30;
-    uint8_t empty: 1;
-    uint8_t full:1;
-} mail_status_t;
-
 void mailbox_write(uint32_t message)
 {
     // Wait until the hardware can accept a word.

@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-void uart_init(void);
+void uart_init();
 void uart_putdec(uint32_t v);
 void uart_putc(unsigned char c);
 unsigned char uart_getc(void);

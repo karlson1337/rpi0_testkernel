@@ -2,6 +2,7 @@
 #include "include/gpio.h"
 #include "include/mailbox.h"
 #include "include/mmio.h"
+#include <stdint.h>
 
 enum {
     UART0_BASE = 0x201000,
@@ -15,7 +16,7 @@ enum {
     UART0_ICR = UART0_BASE + 0x44
 };
 
-void uart_init(void)
+void uart_init()
 {
     while (mmio_read(UART0_FR) & (1u << 3)) { }
     mmio_write(UART0_CR, 0);
