@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 
+//Copies 'count' bytes from 'source' to 'destination'
 void *memcpy(void *destination, const void *source, size_t count);
 
 #endif

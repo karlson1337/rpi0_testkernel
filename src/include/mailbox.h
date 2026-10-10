@@ -2,10 +2,11 @@
 #define MAILBOX_H
 
 #include <stdint.h>
-
+//Mailbox clock id
 enum mailbox_clock {
     MAILBOX_CLOCK_UART = 2
 };
+
 typedef struct {
     uint8_t channel: 4;
     uint32_t data: 28;
@@ -19,4 +20,5 @@ typedef struct {
 
 void mailbox_write(uint32_t message);
 uint32_t mailbox_read(uint8_t expected_channel);
+
 #endif

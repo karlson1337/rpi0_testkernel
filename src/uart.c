@@ -2,6 +2,8 @@
 #include "include/gpio.h"
 #include "include/mailbox.h"
 #include "include/mmio.h"
+
+#include <stddef.h>
 #include <stdint.h>
 
 enum {
@@ -64,6 +66,7 @@ void uart_init()
 
     uart_puts("Clock rate is: ");
     uart_putdec(clock);
+    uart_puts("\r\n");
 }
 
 void uart_putdec(uint32_t v)
@@ -93,4 +96,28 @@ unsigned char uart_getc(void)
 void uart_puts(const char *str)
 {
     while (*str) uart_putc((unsigned char)*str++);
+}
+
+char *uart_gets(char *str, size_t n)
+{
+    if (n == 0)
+        return str;
+
+    size_t i = 0;
+    while (i < n - 1) 
+    {
+        char c = (char)uart_getc();
+
+        if (c == '\r') 
+        {
+            str[i++] = '\n';
+            break;
+        }
+        str[i++] = c;
+
+        if (c == '\n')
+            break;        
+    }
+    str[i] = '\0';
+    return str;
 }

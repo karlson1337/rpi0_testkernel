@@ -1,5 +1,7 @@
 #include <stddef.h>
 
+//Prototype in include/mem.h
+
 void *memcpy(void *destination, const void *source, size_t count)
 {
     unsigned char *dst = destination;
