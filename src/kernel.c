@@ -8,13 +8,17 @@
 
 void kernel_main(uint32_t r0, uint32_t r1, uint32_t atags)
 {
-    extern unsigned char __bss_end;
 
     (void)r0;
     (void)r1;
     (void)atags;
 
+    //initialize UART
     uart_init();
+    
+    //query __bss_end and free RAM;
+    init_kmalloc();
+
     uart_puts("Hello, kernel World!\r\n");
 
     // ACT LED blink sequence.
@@ -24,11 +28,6 @@ void kernel_main(uint32_t r0, uint32_t r1, uint32_t atags)
     sleep(1);
     gpio_high(47);
 
-    //query __bss_end and free RAM;
-    uart_puthex((unsigned int)&__bss_end);
-    uart_puts("\r\n");
-    init_kmalloc();
-    uart_puts("\r\n");
 
     while (1) {
     char buf[100];

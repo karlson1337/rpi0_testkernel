@@ -64,7 +64,7 @@ void uart_init()
     mmio_write(UART0_IMSC, 0);
     mmio_write(UART0_CR, (1u << 0) | (1u << 8) | (1u << 9));
 
-    uart_puts("Clock rate is: ");
+    uart_puts("UART clock rate (Hz): ");
     uart_putdec(clock);
     uart_puts("\r\n");
 }
