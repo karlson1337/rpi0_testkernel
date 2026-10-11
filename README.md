@@ -7,7 +7,13 @@
 
 ### Build instructions:
 Run from repo root:
-```make```
+```
+make
+```
+
+This generates .o files and a `kernel.elf` in `bin/`, along with a `kernel.img` in `out/`
 
 To generate `compile_commands.json` for clangd, run from repo root:
-```bear -- make -B```
+```
+bear -- make -B
+```

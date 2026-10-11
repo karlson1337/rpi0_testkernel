@@ -3,7 +3,7 @@
 CC = arm-none-eabi-gcc
 OBJCOPY = arm-none-eabi-objcopy
 
-CFLAGS = -mcpu=arm1176jzf-s -fpic -ffreestanding -std=gnu99 -O2 -Wall -Wextra -Iinclude
+CFLAGS = -mcpu=arm1176jzf-s -fpic -ffreestanding -std=gnu11 -O2 -Wall -Wextra -Iinclude
 ASFLAGS = -mcpu=arm1176jzf-s -fpic -ffreestanding
 LDFLAGS = -mcpu=arm1176jzf-s -T src/linker.ld -ffreestanding -nostdlib
 
