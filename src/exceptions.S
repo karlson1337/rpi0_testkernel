@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
+//ARM Exception Vector Table
+
 .section .text.exceptions, "ax"
 .align 2
 

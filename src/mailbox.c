@@ -1,5 +1,7 @@
-#include "include/mailbox.h"
-#include "include/mmio.h"
+// SPDX-License-Identifier: GPL-3.0-only
+
+#include <kernel/mailbox.h>
+#include <kernel/mmio.h>
 
 enum {
     MBOX_BASE   = 0xB880,

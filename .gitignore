@@ -1,3 +1,4 @@
 bin/
 firmware/
 out/
+compile_commands.json

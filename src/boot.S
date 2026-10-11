@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 // AArch32 startup for the BCM2835 / ARM1176.
 .section ".text.boot", "ax"
 .globl _start

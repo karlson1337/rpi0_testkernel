@@ -1,5 +1,7 @@
-#include "include/mailbox.h"
-#include "include/uart.h"
+// SPDX-License-Identifier: GPL-3.0-only
+
+#include <kernel/mailbox.h>
+#include <kernel/uart.h>
 
 #include <stdint.h>
 

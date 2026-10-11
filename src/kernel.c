@@ -1,10 +1,11 @@
-#include "include/gpio.h"
-#include "include/timer.h"
-#include "include/uart.h"
-#include "include/kmalloc.h"
+// SPDX-License-Identifier: GPL-3.0-only
+
+#include <kernel/gpio.h>
+#include <kernel/timer.h>
+#include <kernel/uart.h>
+#include <kernel/kmalloc.h>
 
 #include <stdint.h>
-
 
 void kernel_main(uint32_t r0, uint32_t r1, uint32_t atags)
 {
@@ -13,7 +14,7 @@ void kernel_main(uint32_t r0, uint32_t r1, uint32_t atags)
     (void)r1;
     (void)atags;
 
-    //initialize UART
+    
     uart_init();
     
     //query __bss_end and free RAM;
