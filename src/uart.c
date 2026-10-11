@@ -81,6 +81,20 @@ void uart_putdec(uint32_t v)
     uart_puts(&buf[i]);
 }
 
+void uart_puthex(unsigned int value) {
+    char hex_digits[] = "0123456789ABCDEF";
+    
+    // Print the hexadecimal prefix
+    uart_putc('0');
+    uart_putc('x');
+    
+    // Loop through all 8 nibbles (4 bits each) of a 32-bit integer, starting from the top
+    for (int i = 28; i >= 0; i -= 4) {
+        int nibble = (value >> i) & 0xF;
+        uart_putc(hex_digits[nibble]);
+    }
+}
+
 void uart_putc(unsigned char c)
 {
     while (mmio_read(UART0_FR) & (1u << 5)) { }

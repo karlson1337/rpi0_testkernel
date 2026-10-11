@@ -6,6 +6,7 @@
 
 void uart_init();
 void uart_putdec(uint32_t v);
+void uart_puthex(unsigned int value);
 void uart_putc(unsigned char c);
 unsigned char uart_getc(void);
 void uart_puts(const char *str);
