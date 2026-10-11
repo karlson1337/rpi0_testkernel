@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include <kernel/uart.h>
-#include <kernel/gpio.h>
-#include <kernel/mailbox.h>
+#include <kernel/drivers/uart.h>
+#include <kernel/drivers/gpio.h>
+#include <kernel/drivers/mailbox.h>
 #include <kernel/mmio.h>
 
 #include <stddef.h>

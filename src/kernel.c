@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include <kernel/gpio.h>
-#include <kernel/timer.h>
-#include <kernel/uart.h>
-#include <kernel/kmalloc.h>
+#include <kernel/drivers/gpio.h>
+#include <kernel/drivers/timer.h>
+#include <kernel/drivers/uart.h>
+#include <kernel/memory/alloc.h>
 
 #include <stdint.h>
 

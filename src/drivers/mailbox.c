@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include <kernel/mailbox.h>
+#include <kernel/drivers/mailbox.h>
 #include <kernel/mmio.h>
 
 enum {

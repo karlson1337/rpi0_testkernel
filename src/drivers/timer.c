@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include <kernel/timer.h>
+#include <kernel/drivers/timer.h>
 #include <kernel/mmio.h>
 
 #define SYSTMR_CLO 0x3004u

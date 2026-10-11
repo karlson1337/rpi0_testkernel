@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include <kernel/gpio.h>
+#include <kernel/drivers/gpio.h>
 #include <kernel/mmio.h>
-#include <kernel/timer.h>
+#include <kernel/drivers/timer.h>
 
 enum {
     GPIO_BASE = 0x200000,
